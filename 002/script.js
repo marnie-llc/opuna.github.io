@@ -39,7 +39,7 @@ class WebGLApp {
 
     // 各種パラメータや uniform 変数用
     this.previousTime = 0; // 直前のフレームのタイムスタンプ
-    this.timeScale = 0.0;  // 時間の進み方に対するスケール
+    this.timeScale = 1.0;  // 時間の進み方に対するスケール
     this.uTime = 0.0;      // uniform 変数 time 用
     // this.uRatio = 0.0;     // 変化の割合い
 
@@ -200,7 +200,9 @@ class WebGLApp {
 
     // - 各種行列を生成する ---------------------------------------------------
     // モデル座標変換行列
-    const m = m4.identity();
+    const rotateAxis = v3.create(0.0, 1.0, 0.0);
+    const rotateAngle = this.uTime * 0.2;
+    const m = m4.rotate(m4.identity(), rotateAngle, rotateAxis);
 
     // ビュー座標変換行列（WebGLOrbitCamera から行列を取得する）
     const v = this.camera.update();
